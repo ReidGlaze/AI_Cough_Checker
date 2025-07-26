@@ -30,8 +30,8 @@ An AI-powered mobile application that analyzes cough sounds to provide education
 ### 1. Clone the Repository
 
 ```bash
-git clone [your-repo-url]
-cd cough
+git clone https://github.com/ReidGlaze/AI_Cough_Checker.git
+cd AI_Cough_Checker
 ```
 
 ### 2. Firebase Setup
@@ -94,7 +94,7 @@ firebase deploy --only functions
 
 ## License
 
-[Your chosen license]
+MIT License - see [LICENSE](LICENSE) file for details
 
 ## Disclaimer
 
