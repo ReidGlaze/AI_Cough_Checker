@@ -51,7 +51,7 @@ import android.os.Bundle
 import androidx.compose.foundation.layout.systemBarsPadding
 import android.view.HapticFeedbackConstants
 import androidx.compose.ui.platform.LocalView
-import com.twintipsolutions.cough.domain.AppReviewManager
+import com.twintipsolutions.cough.ui.components.AppReviewManager
 
 @Composable
 fun AnimatedMainGradientBackground() {

@@ -16,7 +16,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.twintipsolutions.cough"
-    compileSdk = 34
+    compileSdk = 35
 
     signingConfigs {
         create("release") {

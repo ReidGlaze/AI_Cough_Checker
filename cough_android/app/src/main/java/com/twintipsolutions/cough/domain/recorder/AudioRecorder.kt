@@ -161,11 +161,19 @@ class AudioRecorder(private val context: Context) {
             val base64Audio = Base64.encodeToString(audioBytes, Base64.NO_WRAP)
 
             val userId = auth.currentUser?.uid ?: ""
+            val durationSeconds = (_recordingTime.value / 1000.0).let {
+                Math.round(it * 10.0) / 10.0
+            }
             val data = hashMapOf(
-                "audio" to base64Audio,
                 "userId" to userId,
-                "platform" to "android",
-                "appVersion" to getAppVersion()
+                "audioData" to base64Audio,
+                "audioFormat" to "m4a",
+                "duration" to durationSeconds,
+                "metadata" to hashMapOf(
+                    "recordedAt" to (System.currentTimeMillis() / 1000.0),
+                    "platform" to "android",
+                    "appVersion" to getAppVersion()
+                )
             )
 
             val result = functions
@@ -224,7 +232,7 @@ class AudioRecorder(private val context: Context) {
         val characteristics = (results["characteristics"] as? List<*>)
             ?.filterIsInstance<String>() ?: emptyList()
         val potentialCauses = parsePotentialCauses(
-            (results["potentialCauses"] as? List<*>) ?: emptyList()
+            (results["potentialCauses"] as? List<*>) ?: emptyList<Any?>()
         )
         val managementApproaches = (results["managementApproaches"] as? List<*>)
             ?.filterIsInstance<String>() ?: emptyList()
