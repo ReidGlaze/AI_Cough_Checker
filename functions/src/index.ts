@@ -2,22 +2,34 @@ import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { initializeApp } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import * as logger from 'firebase-functions/logger';
-import { VertexAI } from '@google-cloud/vertexai';
+import { GoogleGenAI } from '@google/genai';
 
 // Initialize Firebase Admin
 initializeApp();
 const db = getFirestore();
 
-// Initialize Vertex AI
-const projectId = process.env.GCLOUD_PROJECT || 'cough-f9960';
-const location = 'us-central1';
-const vertexAI = new VertexAI({ project: projectId, location });
+// Model configuration - Gemini 3.1 Pro Preview with fallback to 2.5 Flash
+const GEMINI_3_MODEL = 'gemini-3.1-pro-preview';
+const GEMINI_2_MODEL = 'gemini-2.5-flash';
+const USE_GEMINI_3 = process.env.USE_GEMINI_3 !== 'false'; // Enable by default, set USE_GEMINI_3=false to use 2.5
 
-// Get Gemini model for multimodal analysis with audio support
-const model = vertexAI.getGenerativeModel({
-  model: 'gemini-2.5-flash',
-  systemInstruction: 'You are a medical cough detector. Your PRIMARY job is to distinguish between ACTUAL COUGHS and other sounds. A cough is an explosive expulsion from lungs with a distinct sound. Speech, talking, singing, humming, breathing, or other vocalizations are NOT coughs. If unsure, report "no cough detected". NEVER analyze speech as a cough.',
+// Initialize the new Google GenAI SDK with Vertex AI backend
+const projectId = process.env.GCLOUD_PROJECT || 'cough-f9960';
+
+// Gemini 3 requires global location, Gemini 2.5 uses us-central1
+const genAI_Global = new GoogleGenAI({
+  vertexai: true,
+  project: projectId,
+  location: 'global',
 });
+
+const genAI_Regional = new GoogleGenAI({
+  vertexai: true,
+  project: projectId,
+  location: 'us-central1',
+});
+
+const systemInstruction = 'You are a medical cough detector. Your PRIMARY job is to distinguish between ACTUAL COUGHS and other sounds. A cough is an explosive expulsion from lungs with a distinct sound. Speech, talking, singing, humming, breathing, or other vocalizations are NOT coughs. If unsure, report "no cough detected". NEVER analyze speech as a cough.';
 
 // Define types
 interface CoughAnalysisRequest {
@@ -162,7 +174,7 @@ async function analyzeCoughWithAI(
   _metadata?: any
 ): Promise<{ results: any; insights: any }> {
   try {
-    logger.info('Starting AI analysis with Vertex AI and native audio');
+    logger.info(`Starting AI analysis with Vertex AI (${USE_GEMINI_3 ? GEMINI_3_MODEL : GEMINI_2_MODEL})`);
     
     // Pre-check: Very short recordings are likely noise/silence
     if (duration < 0.5) {
@@ -224,34 +236,67 @@ Urgency guide:
 - soon: Persistent cough with concerning features
 - urgent: ONLY if severe distress, difficulty breathing, or choking`;
 
-    // Send audio to Gemini 2.5 Flash with native audio support
-    const result = await model.generateContent({
-      contents: [{
-        role: 'user',
+    // Build request contents for new SDK
+    const contents = [
+      {
+        role: 'user' as const,
         parts: [
-          {
-            text: prompt
-          },
+          { text: systemInstruction + '\n\n' + prompt },
           {
             inlineData: {
               mimeType: `audio/${audioFormat === 'm4a' ? 'mp4' : audioFormat}`,
-              data: audioBase64
-            }
-          }
-        ]
-      }],
-      generationConfig: {
-        temperature: 0.3,
-        maxOutputTokens: 4000,
-        topP: 0.95,
-        candidateCount: 1
+              data: audioBase64,
+            },
+          },
+        ],
+      },
+    ];
+
+    // Generation config
+    const config: any = {
+      temperature: 0.3,
+      maxOutputTokens: 4000,
+      topP: 0.95,
+    };
+
+    // Add thinking config for Gemini 3 (improves medical analysis accuracy)
+    // Using 'low' for balance between speed and accuracy (options: minimal, low, medium, high)
+    if (USE_GEMINI_3) {
+      config.thinkingConfig = {
+        thinkingLevel: 'LOW',
+      };
+    }
+
+    // Select the appropriate client and model
+    const primaryClient = USE_GEMINI_3 ? genAI_Global : genAI_Regional;
+    const primaryModel = USE_GEMINI_3 ? GEMINI_3_MODEL : GEMINI_2_MODEL;
+
+    // Send audio to Gemini with native audio support
+    let response;
+    try {
+      response = await primaryClient.models.generateContent({
+        model: primaryModel,
+        contents,
+        config,
+      });
+    } catch (modelError) {
+      // Fallback to Gemini 2.5 if Gemini 3 fails
+      if (USE_GEMINI_3) {
+        logger.warn('Gemini 3 failed, falling back to Gemini 2.5:', modelError);
+        const fallbackConfig = { ...config };
+        delete fallbackConfig.thinkingConfig; // Remove Gemini 3 specific config
+        response = await genAI_Regional.models.generateContent({
+          model: GEMINI_2_MODEL,
+          contents,
+          config: fallbackConfig,
+        });
+      } else {
+        throw modelError;
       }
-    });
-    const response = result.response;
-    const text = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    }
+    const text = response.text || '';
     
     logger.info('AI response received');
-    logger.info('Full response:', JSON.stringify(response, null, 2));
     logger.info('AI response text:', text);
 
     // Parse the JSON response

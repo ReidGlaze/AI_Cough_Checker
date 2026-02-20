@@ -49,6 +49,9 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import android.os.Bundle
 import androidx.compose.foundation.layout.systemBarsPadding
+import android.view.HapticFeedbackConstants
+import androidx.compose.ui.platform.LocalView
+import com.twintipsolutions.cough.domain.AppReviewManager
 
 @Composable
 fun AnimatedMainGradientBackground() {
@@ -98,6 +101,7 @@ fun AnimatedMainGradientBackground() {
 @Composable
 fun ModernContentView() {
     val context = LocalContext.current
+    val view = LocalView.current
     val audioRecorder = remember { AudioRecorder(context) }
     val coroutineScope = rememberCoroutineScope()
     
@@ -152,7 +156,10 @@ fun ModernContentView() {
     // Handle analysis result changes
     LaunchedEffect(analysisResult) {
         if (analysisResult != null) {
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
             showResults = true
+            // Increment analysis count for review prompt
+            AppReviewManager.incrementAnalysisCount(context)
         }
     }
     
@@ -160,6 +167,7 @@ fun ModernContentView() {
         coroutineScope.launch {
             if (isRecording) {
                 // Stop recording
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 showParticles = false
                 audioRecorder.stopRecording()
                 
@@ -171,6 +179,7 @@ fun ModernContentView() {
                 // Check permission first
                 if (recordAudioPermission.status == com.google.accompanist.permissions.PermissionStatus.Granted) {
                     // Start recording
+                    view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     showParticles = true
                     audioRecorder.startRecording()
                     
@@ -395,9 +404,12 @@ fun ModernContentView() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { 
+                    onClick = {
+                        view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
                         showHistory = true
                         Firebase.analytics.logEvent("history_opened", null)
+                        // Increment history view count for review prompt
+                        AppReviewManager.incrementHistoryViewCount(context)
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Transparent

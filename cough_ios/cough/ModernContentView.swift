@@ -18,6 +18,10 @@ struct ModernContentView: View {
     @State private var waveformAnimation = false
     @State private var showResults = false
     @State private var showHistory = false
+
+    private let impactLight = UIImpactFeedbackGenerator(style: .light)
+    private let impactMedium = UIImpactFeedbackGenerator(style: .medium)
+    private let notificationFeedback = UINotificationFeedbackGenerator()
     
     var body: some View {
         ZStack {
@@ -161,9 +165,10 @@ struct ModernContentView: View {
                 // Bottom navigation with glassmorphic style
                 HStack(spacing: 60) {
                     Spacer()
-                    Button(action: { 
+                    Button(action: {
                         print("History button tapped")
-                        showHistory = true 
+                        impactLight.impactOccurred()
+                        showHistory = true
                     }) {
                         NavigationButton(icon: "clock.arrow.circlepath", label: "History & Info", isActive: true)
                     }
@@ -189,6 +194,7 @@ struct ModernContentView: View {
         }
         .onChange(of: audioRecorder.analysisResult) { newValue in
             if newValue != nil {
+                notificationFeedback.notificationOccurred(.success)
                 showResults = true
                 // Increment analysis count for review prompt
                 AppReviewManager.shared.incrementAnalysisCount()
@@ -203,13 +209,15 @@ struct ModernContentView: View {
         if audioRecorder.isAnalyzing {
             return // Don't allow action while analyzing
         }
-        
+
         withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
             if audioRecorder.isRecording {
+                impactMedium.impactOccurred()
                 audioRecorder.stopRecording()
                 recordingScale = 1.0
                 showParticles = false
             } else {
+                impactMedium.impactOccurred()
                 audioRecorder.startRecording()
                 recordingScale = 1.1
                 showParticles = true

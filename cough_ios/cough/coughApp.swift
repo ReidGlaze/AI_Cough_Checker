@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAnalytics
 import FirebaseFirestore
 import FirebaseFunctions
 
@@ -18,15 +19,18 @@ struct coughApp: App {
     init() {
         print("coughApp init started")
         FirebaseApp.configure()
-        
+
         print("Firebase configured successfully")
         if let app = FirebaseApp.app() {
             print("Project ID: \(app.options.projectID ?? "Unknown")")
         }
-        
+
+        // Log app open event
+        Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
+
         // Debug: Check onboarding status
         print("Current hasCompletedOnboarding value: \(UserDefaults.standard.bool(forKey: "hasCompletedOnboarding"))")
-        
+
         print("coughApp init completed")
     }
     
@@ -63,12 +67,20 @@ struct coughApp: App {
                                 .environmentObject(authManager)
                                 .onAppear {
                                     print("Showing ModernContentView")
+                                    Analytics.logEvent(AnalyticsEventScreenView, parameters: [
+                                        AnalyticsParameterScreenName: "ModernContentView",
+                                        AnalyticsParameterScreenClass: "ModernContentView"
+                                    ])
                                 }
                         } else {
                             ModernOnboardingView()
                                 .environmentObject(authManager)
                                 .onAppear {
                                     print("Showing ModernOnboardingView")
+                                    Analytics.logEvent(AnalyticsEventScreenView, parameters: [
+                                        AnalyticsParameterScreenName: "ModernOnboardingView",
+                                        AnalyticsParameterScreenClass: "ModernOnboardingView"
+                                    ])
                                 }
                         }
                     }

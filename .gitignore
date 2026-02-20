@@ -181,6 +181,9 @@ cache/
 !cough/cough/Assets.xcassets/**/*.png
 !google-play-screenshots/*.png
 
+# Decompiled reference material
+decompiled_android/
+
 # Private notes
 NOTES.md
 TODO.md
