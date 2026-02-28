@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -379,8 +380,9 @@ private fun HistoryItem(
             .clickable { onClick() },
         shape = RoundedCornerShape(15.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White.copy(alpha = 0.1f)
-        )
+            containerColor = Color(0xFF1C2841)
+        ),
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
     ) {
         Row(
             modifier = Modifier

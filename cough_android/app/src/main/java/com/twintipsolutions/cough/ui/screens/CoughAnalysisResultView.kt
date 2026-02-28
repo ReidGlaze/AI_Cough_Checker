@@ -495,38 +495,37 @@ private fun CharacteristicChip(text: String, modifier: Modifier = Modifier) {
 
 @Composable
 private fun PotentialCauseCard(cause: PotentialCause) {
-    GlassmorphicCard(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .clip(CircleShape)
-                        .background(cause.likelihoodColor)
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                    text = cause.condition,
-                    color = Color.White,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "(${cause.likelihood})",
-                    color = cause.likelihoodColor,
-                    fontSize = 14.sp
-                )
-            }
-            Spacer(modifier = Modifier.height(4.dp))
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(cause.likelihoodColor)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = cause.description,
-                modifier = Modifier.padding(start = 20.dp),
-                color = Color.White.copy(alpha = 0.8f),
-                fontSize = 14.sp,
-                lineHeight = 20.sp
+                text = cause.condition,
+                modifier = Modifier.weight(1f, fill = false),
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "(${cause.likelihood})",
+                color = cause.likelihoodColor,
+                fontSize = 14.sp
             )
         }
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = cause.description,
+            modifier = Modifier.padding(start = 20.dp),
+            color = Color.White.copy(alpha = 0.8f),
+            fontSize = 14.sp,
+            lineHeight = 20.sp
+        )
     }
 }
 
@@ -543,10 +542,13 @@ private fun SoundAnalysisRow(label: String, value: String) {
             color = Color.White.copy(alpha = 0.6f),
             fontSize = 16.sp
         )
+        Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = value,
+            modifier = Modifier.weight(1f),
             color = Color.White,
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            textAlign = TextAlign.End
         )
     }
 }
