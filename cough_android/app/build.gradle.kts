@@ -32,8 +32,8 @@ android {
     defaultConfig {
         applicationId = "com.twintipsolutions.cough"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 11
+        targetSdk = 35
+        versionCode = 13
         versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
