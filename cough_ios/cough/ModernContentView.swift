@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAnalytics
 import FirebaseAuth
 
 struct ModernContentView: View {
@@ -169,6 +170,7 @@ struct ModernContentView: View {
                         print("History button tapped")
                         impactLight.impactOccurred()
                         showHistory = true
+                        Analytics.logEvent("history_opened", parameters: nil)
                     }) {
                         NavigationButton(icon: "clock.arrow.circlepath", label: "History & Info", isActive: true)
                     }
@@ -214,11 +216,15 @@ struct ModernContentView: View {
             if audioRecorder.isRecording {
                 impactMedium.impactOccurred()
                 audioRecorder.stopRecording()
+                Analytics.logEvent("recording_stopped", parameters: [
+                    "recording_duration": audioRecorder.recordingTime
+                ])
                 recordingScale = 1.0
                 showParticles = false
             } else {
                 impactMedium.impactOccurred()
                 audioRecorder.startRecording()
+                Analytics.logEvent("recording_started", parameters: nil)
                 recordingScale = 1.1
                 showParticles = true
             }

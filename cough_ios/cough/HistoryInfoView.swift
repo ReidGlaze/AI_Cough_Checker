@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAnalytics
 import FirebaseFunctions
 import FirebaseFirestore
 import FirebaseAuth
@@ -144,6 +145,10 @@ struct HistoryTabView: View {
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 5, trailing: 16))
                             .onTapGesture {
+                                Analytics.logEvent("history_item_clicked", parameters: [
+                                    "cough_type": analysis.coughType,
+                                    "severity": analysis.severity
+                                ])
                                 selectedAnalysis = analysis
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {

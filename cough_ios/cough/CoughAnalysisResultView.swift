@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAnalytics
 import FirebaseFirestore
 import FirebaseAuth
 
@@ -743,6 +744,9 @@ struct ReportContentSheet: View {
                     print("Error domain: \((error as NSError).domain)")
                 } else {
                     print("Report submitted successfully")
+                    Analytics.logEvent("harmful_content_reported", parameters: [
+                        "analysis_id": self.analysisId
+                    ])
                     self.reportText = ""
                     self.isPresented = false
                     self.showConfirmation = true
