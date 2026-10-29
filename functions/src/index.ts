@@ -8,8 +8,9 @@ import { GoogleGenAI } from '@google/genai';
 initializeApp();
 const db = getFirestore();
 
-// Model configuration - Gemini 3.1 Pro Preview with fallback to 2.5 Flash
-const GEMINI_3_MODEL = 'gemini-3.1-pro-preview';
+// Model configuration - Gemini 3.8 Flash with fallback to 3.1 Pro Preview, then 2.5 Flash
+const GEMINI_3_MODEL = 'gemini-3.8-flash';
+const GEMINI_3_FALLBACK_MODEL = 'gemini-3.1-pro-preview';
 const GEMINI_2_MODEL = 'gemini-2.5-flash';
 const USE_GEMINI_3 = process.env.USE_GEMINI_3 !== 'false'; // Enable by default, set USE_GEMINI_3=false to use 2.5
 
@@ -280,9 +281,20 @@ Urgency guide:
         config,
       });
     } catch (modelError) {
-      // Fallback to Gemini 2.5 if Gemini 3 fails
-      if (USE_GEMINI_3) {
-        logger.warn('Gemini 3 failed, falling back to Gemini 2.5:', modelError);
+      if (!USE_GEMINI_3) {
+        throw modelError;
+      }
+      try {
+        // Fallback to Gemini 3.1 Pro if Gemini 3.8 Flash fails
+        logger.warn(`${GEMINI_3_MODEL} failed, falling back to ${GEMINI_3_FALLBACK_MODEL}:`, modelError);
+        response = await genAI_Global.models.generateContent({
+          model: GEMINI_3_FALLBACK_MODEL,
+          contents,
+          config,
+        });
+      } catch (fallbackError) {
+        // Fallback to Gemini 2.5 if Gemini 3 models fail
+        logger.warn(`${GEMINI_3_FALLBACK_MODEL} failed, falling back to ${GEMINI_2_MODEL}:`, fallbackError);
         const fallbackConfig = { ...config };
         delete fallbackConfig.thinkingConfig; // Remove Gemini 3 specific config
         response = await genAI_Regional.models.generateContent({
@@ -290,8 +302,6 @@ Urgency guide:
           contents,
           config: fallbackConfig,
         });
-      } else {
-        throw modelError;
       }
     }
     const text = response.text || '';
