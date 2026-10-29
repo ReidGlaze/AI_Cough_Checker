@@ -258,6 +258,7 @@ Urgency guide:
       temperature: 0.3,
       maxOutputTokens: 4000,
       topP: 0.95,
+      responseMimeType: 'application/json',
     };
 
     // Add thinking config for Gemini 3 (improves medical analysis accuracy)
