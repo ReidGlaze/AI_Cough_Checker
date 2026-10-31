@@ -147,10 +147,10 @@ export const analyzeCough = onCall<CoughAnalysisRequest>(
       });
 
       // Update user's last analysis timestamp
-      await db.collection('users').doc(userId).update({
+      await db.collection('users').doc(userId).set({
         lastAnalysisAt: timestamp,
         totalAnalyses: FieldValue.increment(1),
-      });
+      }, { merge: true });
 
       logger.info(`Cough analysis completed for user: ${userId}, analysis: ${analysisId}`);
 
