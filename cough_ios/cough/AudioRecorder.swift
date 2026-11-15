@@ -280,6 +280,12 @@ struct CoughAnalysisResult: Identifiable, Equatable {
         lhs.id == rhs.id
     }
     
+    /// When the analysis was made. `timestamp` holds the stored value, which
+    /// the backend saves in milliseconds; see `CoughTimestamp`.
+    var date: Date {
+        CoughTimestamp.date(from: timestamp)
+    }
+    
     var urgencyColor: Color {
         switch urgency {
         case "urgent":

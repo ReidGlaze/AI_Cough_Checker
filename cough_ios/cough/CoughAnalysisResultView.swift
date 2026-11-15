@@ -43,7 +43,7 @@ struct CoughAnalysisResultView: View {
                             .font(.system(size: 32, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                         
-                        Text(Date(timeIntervalSince1970: result.timestamp), style: .date)
+                        Text(result.date, style: .date)
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.6))
                     }

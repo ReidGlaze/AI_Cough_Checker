@@ -152,7 +152,7 @@ struct HistoryItemCard: View {
             
             // Details
             VStack(alignment: .leading, spacing: 5) {
-                Text(dateFormatter.string(from: Date(timeIntervalSince1970: analysis.timestamp)))
+                Text(dateFormatter.string(from: analysis.date))
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)

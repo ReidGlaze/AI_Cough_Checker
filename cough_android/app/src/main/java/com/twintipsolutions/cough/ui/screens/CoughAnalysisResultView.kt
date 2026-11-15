@@ -37,6 +37,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.twintipsolutions.cough.domain.model.CoughAnalysisResult
+import com.twintipsolutions.cough.domain.model.CoughTimestamp
 import com.twintipsolutions.cough.domain.model.PotentialCause
 import com.twintipsolutions.cough.ui.components.AnimatedGradientBackground
 import com.twintipsolutions.cough.ui.components.GlassmorphicCard
@@ -685,6 +686,6 @@ private fun submitReport(
 }
 
 private fun formatTimestamp(timestamp: Double): String {
-    val date = Date((timestamp * 1000).toLong())
+    val date = Date(CoughTimestamp.toEpochMillis(timestamp))
     return SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(date)
 }

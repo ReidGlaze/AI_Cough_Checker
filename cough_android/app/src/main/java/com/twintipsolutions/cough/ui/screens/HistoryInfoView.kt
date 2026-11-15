@@ -48,6 +48,7 @@ import com.google.firebase.ktx.Firebase
 import com.twintipsolutions.cough.data.ONBOARDING_COMPLETED_KEY
 import com.twintipsolutions.cough.data.dataStore
 import com.twintipsolutions.cough.domain.model.CoughAnalysisResult
+import com.twintipsolutions.cough.domain.model.CoughTimestamp
 import com.twintipsolutions.cough.domain.model.PotentialCause
 import com.twintipsolutions.cough.ui.components.AppReviewManager
 import com.twintipsolutions.cough.ui.components.GlassmorphicCard
@@ -714,7 +715,7 @@ private suspend fun deleteAccount(context: android.content.Context) {
 }
 
 private fun formatDate(timestamp: Double): String {
-    val date = Date((timestamp * 1000).toLong())
+    val date = Date(CoughTimestamp.toEpochMillis(timestamp))
     return SimpleDateFormat("MMM d, yyyy h:mm a", Locale.getDefault()).format(date)
 }
 
