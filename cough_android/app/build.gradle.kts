@@ -33,8 +33,8 @@ android {
         applicationId = "com.twintipsolutions.cough"
         minSdk = 24
         targetSdk = 36
-        versionCode = 14
-        versionName = "1.2.1"
+        versionCode = 15
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -92,7 +92,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
