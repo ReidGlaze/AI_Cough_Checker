@@ -439,6 +439,17 @@ export default function Privacy() {
           </div>
         </div>
       </div>
+      <footer className="pb-10 px-4 text-center text-sm text-ink/60">
+        Made by{' '}
+        <a
+          href="https://twintipsolutions.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-brand-700 transition-colors"
+        >
+          Twin Tip Solutions
+        </a>
+      </footer>
     </div>
   )
 }

@@ -394,6 +394,17 @@ export default function Home() {
               Disclaimer: Cough Checker provides educational information only and is not a
               substitute for professional medical advice, diagnosis, or treatment.
             </p>
+            <p className="mt-3">
+              Made by{' '}
+              <a
+                href="https://twintipsolutions.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-white transition-colors"
+              >
+                Twin Tip Solutions
+              </a>
+            </p>
           </div>
         </div>
       </footer>
