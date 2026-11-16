@@ -361,7 +361,7 @@ struct InfoTabView: View {
             Text("This will permanently delete your account and all analysis history. This action cannot be undone.")
         }
         .sheet(isPresented: $showingPrivacyPolicy) {
-            SafariView(url: URL(string: "https://aicoughchecker.vercel.app/privacy")!)
+            SafariView(url: URL(string: "https://cough.twintipsolutions.com/privacy")!)
         }
     }
     

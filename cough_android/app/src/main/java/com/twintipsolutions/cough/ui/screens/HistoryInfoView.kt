@@ -608,7 +608,7 @@ private fun InfoTab(onDeleteAccountClick: () -> Unit) {
                         text = "Privacy Policy",
                         onClick = {
                             context.startActivity(
-                                Intent(Intent.ACTION_VIEW, Uri.parse("https://aicoughchecker.vercel.app/privacy"))
+                                Intent(Intent.ACTION_VIEW, Uri.parse("https://cough.twintipsolutions.com/privacy"))
                             )
                         }
                     )
