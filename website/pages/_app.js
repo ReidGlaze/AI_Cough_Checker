@@ -27,6 +27,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#00838F" />
         <meta
           name="description"
@@ -38,14 +39,16 @@ export default function App({ Component, pageProps }) {
           content="Get instant AI-powered analysis of your cough. Educational health insights at your fingertips."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:image" content="https://cough.twintipsolutions.com/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Cough Checker - AI Cough Analysis App" />
         <meta
           name="twitter:description"
           content="Get instant AI-powered analysis of your cough. Educational health insights at your fingertips."
         />
-        <meta name="twitter:image" content="/og-image.png" />
+        <meta name="twitter:image" content="https://cough.twintipsolutions.com/og-image.png" />
       </Head>
       <div className={`${display.variable} ${body.variable} ${mono.variable} font-sans`}>
         <Component {...pageProps} />
