@@ -1,23 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-const StarIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    aria-hidden="true"
-    data-slot="icon"
-    className="w-5 h-5 text-yellow-400"
-  >
-    <path
-      fillRule="evenodd"
-      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-      clipRule="evenodd"
-    />
-  </svg>
-)
-
 const CheckIcon = () => (
   <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
     <path
@@ -33,6 +16,35 @@ const AppleIcon = ({ className }) => (
     <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.51-3.74 4.25z" />
   </svg>
 )
+
+const PlayStoreIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.394 12l2.304-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
+  </svg>
+)
+
+const screenshots = [
+  {
+    src: '/screenshots/01-record.webp',
+    alt: 'Cough Checker record screen: record your cough and get an AI read in seconds',
+  },
+  {
+    src: '/screenshots/02-cough-type.webp',
+    alt: 'Analysis result showing whether the cough is dry or wet',
+  },
+  {
+    src: '/screenshots/03-causes.webp',
+    alt: 'Possible causes of the cough, plainly explained',
+  },
+  {
+    src: '/screenshots/04-history.webp',
+    alt: 'History screen tracking every cough check over time',
+  },
+  {
+    src: '/screenshots/05-privacy.webp',
+    alt: 'Information screen with the option to delete your data anytime',
+  },
+]
 
 export default function Home() {
   return (
@@ -63,12 +75,6 @@ export default function Home() {
                   className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
                 >
                   How It Works
-                </a>
-                <a
-                  href="#testimonials"
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
-                >
-                  Reviews
                 </a>
                 <Link
                   href="/privacy"
@@ -109,18 +115,23 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
-                href="#download"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-all transform hover:scale-105"
+                href="https://apps.apple.com/us/app/ai-cough-checker/id6748887358"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-full hover:bg-gray-900 transition-all transform hover:scale-105"
               >
                 <AppleIcon className="w-6 h-6 mr-2" />
                 Download on App Store
               </a>
-              <Link
-                href="/privacy"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-blue-600 bg-white border-2 border-blue-600 rounded-full hover:bg-blue-50 transition-all"
+              <a
+                href="https://play.google.com/store/apps/details?id=com.twintipsolutions.cough"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-full hover:bg-gray-900 transition-all transform hover:scale-105"
               >
-                View Privacy Policy
-              </Link>
+                <PlayStoreIcon className="w-6 h-6 mr-2" />
+                Get it on Google Play
+              </a>
             </div>
           </div>
 
@@ -157,6 +168,33 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Screenshots Section */}
+      <section id="screenshots" className="py-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10 px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">See It in Action</h2>
+            <p className="text-xl text-gray-600">From recording to results in a few taps</p>
+          </div>
+          <ul className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 sm:px-6 lg:grid lg:grid-cols-5 lg:gap-6 lg:overflow-visible lg:px-8 lg:pb-0">
+            {screenshots.map((shot) => (
+              <li
+                key={shot.src}
+                className="snap-center shrink-0 w-[68%] max-w-[280px] sm:w-[40%] lg:w-auto lg:max-w-none"
+              >
+                <img
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={600}
+                  height={1304}
+                  loading="lazy"
+                  className="w-full h-auto rounded-2xl shadow-lg border border-gray-200"
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -226,8 +264,8 @@ export default function Home() {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Privacy First</h3>
                     <p className="text-gray-600">
-                      Your health data stays private with anonymous authentication and secure
-                      cloud processing.
+                      You stay anonymous. Your recording is sent securely to the cloud for
+                      analysis and is not stored afterward.
                     </p>
                   </div>
                 </div>
@@ -255,7 +293,7 @@ export default function Home() {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Instant Results</h3>
                     <p className="text-gray-600">
-                      Get comprehensive analysis results in seconds, right on your device.
+                      Get comprehensive analysis results back on your phone in seconds.
                     </p>
                   </div>
                 </div>
@@ -295,7 +333,7 @@ export default function Home() {
 
             {/* Feature Detail Panel */}
             <div className="glass-effect rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">AI-Powered Analysis</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">What Each Analysis Covers</h3>
               <ul className="space-y-4">
                 <li className="flex items-center">
                   <CheckIcon />
@@ -363,59 +401,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">What Users Say</h2>
-            <p className="text-xl text-gray-600">Join thousands of satisfied users</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex mb-4">
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-              </div>
-              <p className="text-gray-700 mb-4">
-                This app helped me understand my persistent cough. The analysis was detailed
-                and educational.
-              </p>
-              <p className="font-medium text-gray-900">Sarah M.</p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex mb-4">
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-              </div>
-              <p className="text-gray-700 mb-4">
-                Love the privacy features. Quick, easy to use, and provides helpful insights.
-              </p>
-              <p className="font-medium text-gray-900">John D.</p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex mb-4">
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-              </div>
-              <p className="text-gray-700 mb-4">
-                The AI analysis is impressive. It correctly identified my cough type and
-                suggested I see a doctor.
-              </p>
-              <p className="font-medium text-gray-900">Emily R.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Download Section */}
       <section
         id="download"
@@ -429,24 +414,33 @@ export default function Home() {
             Download Cough Checker today and get instant AI-powered insights
           </p>
           <div className="bg-white rounded-3xl p-8 shadow-xl mb-8">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <div className="text-left">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Available on iOS</h3>
-                <p className="text-gray-600 mb-4">Compatible with iPhone and iPad</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Requires iOS 14.0 or later</li>
-                  <li>• Free to download and use</li>
-                  <li>• No ads or hidden fees</li>
-                </ul>
-              </div>
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Available on iOS & Android</h3>
+              <p className="text-gray-600">Free to download and use — no ads or hidden fees</p>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="#"
-                className="flex-shrink-0 inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-xl hover:bg-gray-900 transition-all transform hover:scale-105"
+                href="https://apps.apple.com/us/app/ai-cough-checker/id6748887358"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-xl hover:bg-gray-900 transition-all transform hover:scale-105"
               >
                 <AppleIcon className="w-8 h-8 mr-3" />
                 <div className="text-left">
                   <div className="text-xs">Download on the</div>
                   <div className="text-xl font-semibold">App Store</div>
+                </div>
+              </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.twintipsolutions.cough"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-xl hover:bg-gray-900 transition-all transform hover:scale-105"
+              >
+                <PlayStoreIcon className="w-8 h-8 mr-3" />
+                <div className="text-left">
+                  <div className="text-xs">Get it on</div>
+                  <div className="text-xl font-semibold">Google Play</div>
                 </div>
               </a>
             </div>
@@ -487,14 +481,6 @@ export default function Home() {
                     How It Works
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="#testimonials"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Reviews
-                  </a>
-                </li>
               </ul>
             </div>
             <div>
@@ -529,7 +515,7 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact</h4>
               <p className="text-gray-400">reid@twintipsolutions.com</p>
-              <p className="text-gray-400 mt-2">&copy; 2025 TwinTip Solutions</p>
+              <p className="text-gray-400 mt-2">&copy; 2026 TwinTip Solutions</p>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
