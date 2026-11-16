@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Terms() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-paper">
       <Head>
         <title>Terms of Service - Cough Checker</title>
       </Head>
@@ -14,7 +14,7 @@ export default function Terms() {
           <div className="flex justify-between items-center h-16">
             <Link
               href="/"
-              className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
+              className="flex items-center text-gray-700 hover:text-brand-700 transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ export default function Terms() {
               </svg>
               <span className="font-medium">Back to Home</span>
             </Link>
-            <h1 className="text-2xl font-bold gradient-text">Cough Checker</h1>
+            <h1 className="font-display text-lg font-extrabold tracking-tight text-ink">Cough Checker</h1>
           </div>
         </div>
       </nav>
@@ -42,7 +42,7 @@ export default function Terms() {
       {/* Content */}
       <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+          <div className="bg-white rounded-2xl border border-line p-8 md:p-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-8">Terms of Service</h1>
             <div className="prose prose-lg max-w-none">
               <p className="text-gray-600 mb-6">

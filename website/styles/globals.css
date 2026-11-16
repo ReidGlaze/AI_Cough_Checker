@@ -4,37 +4,48 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
+  @apply bg-paper text-ink;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@layer components {
-  .glass-effect {
-    @apply border border-white/20 bg-white/10 backdrop-blur-lg;
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.015em;
   }
 
-  .gradient-text {
-    @apply bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent;
+  ::selection {
+    background: #a6d3d8;
   }
 
-  .animated-gradient {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 200% 200%;
-    animation: gradient 8s ease infinite;
+  :focus-visible {
+    outline: 2px solid #00838f;
+    outline-offset: 3px;
   }
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
+@layer components {
+  /* Top bar used on every page */
+  .glass-effect {
+    @apply border-b border-line bg-paper/90 backdrop-blur-md;
   }
-  50% {
-    background-position: 100% 50%;
+
+  /* Small uppercase label above section headings */
+  .eyebrow {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand-700;
   }
-  100% {
-    background-position: 0% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

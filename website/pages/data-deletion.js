@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function DataDeletion() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-paper">
       <Head>
         <title>Data Deletion - Cough Checker</title>
         <meta name="description" content="Learn how to delete your data from Cough Checker" />
@@ -14,7 +14,7 @@ export default function DataDeletion() {
         {/* Back Link */}
         <Link
           href="/"
-          className="inline-flex items-center text-indigo-600 hover:text-indigo-700 mb-8"
+          className="inline-flex items-center text-brand-700 hover:text-brand-800 mb-8"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ export default function DataDeletion() {
         </Link>
 
         {/* Header Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <div className="bg-white rounded-2xl border border-line p-8 mb-8">
           <div className="flex items-center mb-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,13 +63,13 @@ export default function DataDeletion() {
         </div>
 
         {/* How to Delete Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <div className="bg-white rounded-2xl border border-line p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Delete Your Data</h2>
           <div className="space-y-6">
             {/* Step 1 */}
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 font-bold">
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-brand-50 text-brand-700 font-bold">
                   1
                 </div>
               </div>
@@ -86,7 +86,7 @@ export default function DataDeletion() {
             {/* Step 2 */}
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 font-bold">
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-brand-50 text-brand-700 font-bold">
                   2
                 </div>
               </div>
@@ -142,7 +142,7 @@ export default function DataDeletion() {
             {/* Step 3 */}
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 font-bold">
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-brand-50 text-brand-700 font-bold">
                   3
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function DataDeletion() {
             {/* Step 4 */}
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 font-bold">
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-brand-50 text-brand-700 font-bold">
                   4
                 </div>
               </div>
@@ -198,7 +198,7 @@ export default function DataDeletion() {
         </div>
 
         {/* What Gets Deleted Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <div className="bg-white rounded-2xl border border-line p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">What Gets Deleted</h2>
           <div className="space-y-4">
             <div className="flex items-start">
@@ -273,22 +273,22 @@ export default function DataDeletion() {
         </div>
 
         {/* Deletion Timeline Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <div className="bg-white rounded-2xl border border-line p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Deletion Timeline</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-indigo-500 pl-4">
+            <div className="border-l-4 border-brand-600 pl-4">
               <h4 className="font-semibold text-gray-900">Immediate</h4>
               <p className="text-gray-600">
                 Your account is immediately deactivated and inaccessible
               </p>
             </div>
-            <div className="border-l-4 border-indigo-500 pl-4">
+            <div className="border-l-4 border-brand-600 pl-4">
               <h4 className="font-semibold text-gray-900">Within 24 hours</h4>
               <p className="text-gray-600">
                 All your personal data is permanently deleted from our active databases
               </p>
             </div>
-            <div className="border-l-4 border-indigo-500 pl-4">
+            <div className="border-l-4 border-brand-600 pl-4">
               <h4 className="font-semibold text-gray-900">Within 30 days</h4>
               <p className="text-gray-600">
                 Your data is removed from all backup systems
@@ -306,7 +306,7 @@ export default function DataDeletion() {
           </p>
           <a
             href="mailto:reid@twintipsolutions.com"
-            className="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-brand-600 text-white font-medium rounded-lg hover:bg-brand-700 transition-colors"
           >
             Contact Support
           </a>
