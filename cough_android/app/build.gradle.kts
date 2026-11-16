@@ -16,7 +16,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.twintipsolutions.cough"
-    compileSdk = 35
+    compileSdk = 36
 
     signingConfigs {
         create("release") {
@@ -32,9 +32,9 @@ android {
     defaultConfig {
         applicationId = "com.twintipsolutions.cough"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 13
-        versionName = "1.2"
+        targetSdk = 36
+        versionCode = 14
+        versionName = "1.2.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

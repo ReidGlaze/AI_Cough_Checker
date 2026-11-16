@@ -23,6 +23,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Cough">
+            <!-- Android 16 (API 36) ignores screenOrientation on large screens (sw600dp+).
+                 Keep honoring the portrait lock there, as before, while this opt-out exists. -->
+            <property
+                android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICT_RESIZABILITY"
+                android:value="true" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
